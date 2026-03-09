@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ameen | Creative Developer</title>
+
+    <link rel="shortcut icon" href="./assests/images/icon.png" type="image/x-icon">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;900&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.cdnfonts.com/css/infirmly-indicator" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+
+    <div id="intro" class="intro-overlay">
+        <div class="text-mask">
+            <h1 class="intro-text">AMEEN<span>.DEV</span></h1>
+        </div>
+    </div>
+
+    <nav id="navbar">
+        <div class="logo">AMEEN<span>.DEV</span></div>
+
+        <div class="nav-right desktop-menu">
+            <a href="#work" class="nav-link" onclick="scrollToSection(event, 'work')">Work</a>
+            <a href="#about" class="nav-link" onclick="scrollToSection(event, 'about')">About</a>
+            <a href="https://wa.me/919351399956" target="_blank" class="nav-btn">Contact</a>
+        </div>
+
+        <div class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="close-btn" id="close-sidebar">&times;</div>
+        <div class="sidebar-links">
+            <a href="#" class="sidebar-link" onclick="scrollToSection(event, 'work')">Work</a>
+            <a href="#" class="sidebar-link" onclick="scrollToSection(event, 'about')">About</a>
+            <a href="https://wa.me/919351399956" target="_blank" class="sidebar-btn">Contact</a>
+        </div>
+    </div>
+
+    <main id="main-content">
+
+        <section class="landing">
+            <h1 class="hero-title">BUILT<br>DIFFERENT</h1>
+            <p class="tagline">
+                Where clean design meets powerful
+                <span id="typing-word" class="gradient-typing"></span>
+            </p>
+
+
+        </section>
+
+        <section id="work" class="project-section">
+            <div class="section-header">
+                <h2 class="reveal-letters">Selected Work</h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="project-grid">
+                <div class="project-card card">
+                    <div class="card-img-container">
+                        <img src="https://images.unsplash.com/photo-1557821552-17105176677c?w=600&q=80" alt="Work 1">
+                        <div class="card-overlay">
+                            <a href="https://ameen-eshop.netlify.app" target="_blank" class="preview-btn">Live
+                                Preview</a>
+                        </div>
+                    </div>
+                    <div class="glare"></div>
+                    <div class="card-info">
+                        <h3>E-Shop Store</h3>
+                        <p>Fully responsive e-commerce layout with modern UI.</p>
+                    </div>
+                </div>
+
+                <div class="project-card card">
+                    <div class="card-img-container">
+                        <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80" alt="Work 2">
+                        <div class="card-overlay">
+                            <a href="https://ameen-gym.netlify.app" target="_blank" class="preview-btn">Live Preview</a>
+                        </div>
+                    </div>
+                    <div class="glare"></div>
+                    <div class="card-info">
+                        <h3>Gym Landing Page</h3>
+                        <p>High-performance fitness site with GSAP animations.</p>
+                    </div>
+                </div>
+
+                <div class="project-card card">
+                    <div class="card-img-container">
+                        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80" alt="Work 3">
+                        <div class="card-overlay">
+                            <a href="https://ameen-agency.netlify.app" target="_blank" class="preview-btn">Live
+                                Preview</a>
+                        </div>
+                    </div>
+                    <div class="glare"></div>
+                    <div class="card-info">
+                        <h3>Creative Agency</h3>
+                        <p>Minimalist portfolio for digital marketing studios.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="about-container">
+                <div class="about-text">
+                    <span class="sub-heading reveal-letters">Introduction</span>
+                    <h2><span class="reveal-words">Who I Am &</span> <span class="highlight">
+                            <span class="reveal-words">What I</span> <br>
+                            <span class="reveal-words">Do</span>
+                        </span></h2>
+                    <p class="reveal-words about-para1">
+                        I am **Ameen**, a dedicated Creative Developer focused on crafting high-performance, visually
+                        stunning websites.
+                        I don't just write code—I build digital experiences that are seamless and impactful.
+                    </p>
+                    <p class="about-para2">
+                        <strong class="reveal-letters">My Mission:</strong> <span class="reveal-words">To bridge the gap
+                            between complex design concepts and functional
+                            reality,
+                            ensuring every project is scalable, responsive, and ahead of modern web standards.</span>
+                    </p>
+
+                    <div class="cta-wrapper">
+                        <p class="hire-status">
+                            <span></span> Available for hire
+                        </p>
+                        <a href="#" onclick="scrollToSection(event, 'contact')" class="about-btn">Discuss Your
+                            Project</a>
+                    </div>
+                </div>
+
+                <div class="about-skills">
+                    <h3 class="reveal-letters">Technical Expertise</h3>
+                    <div class="skills-grid">
+                        <div class="skill-tag">Modern HTML5</div>
+                        <div class="skill-tag">Advanced CSS3</div>
+                        <div class="skill-tag">JavaScript (ES6+)</div>
+                        <div class="skill-tag">Responsive Architecture</div>
+                        <div class="skill-tag">UI/UX Implementation</div>
+                        <div class="skill-tag">Performance Optimization</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="section-header">
+                <h2>Get In <span>Touch</span></h2>
+                <div class="line"></div>
+            </div>
+
+            <div class="contact-grid">
+                <form class="contact-form" id="contactForm" action="https://formspree.io/f/xqeykvwj" method="POST">
+
+                    <div class="form-elements">
+                        <div class="cover"></div>
+                        <div class="input-group">
+                            <input type="text" id="name" name="name" required placeholder=" ">
+                            <label for="name">Your Name</label>
+                        </div>
+
+                        <div class="input-group">
+                            <input type="email" id="email" name="email" required placeholder=" ">
+                            <label for="email">Your Email</label>
+                        </div>
+
+                        <div class="input-group">
+                            <textarea id="message" name="message" rows="4" required placeholder=" "></textarea>
+                            <label for="message">Your Message</label>
+                        </div>
+
+                        <input type="text" name="_gotcha" style="display:none">
+
+                        <button type="button" class="submit-btn" id="submitBtn">
+                            <span>Send Message</span>
+                            <i class="bi bi-send send-icon" id="plane"></i>
+                        </button>
+                    </div>
+                </form>
+
+                <div class="signature">
+                    <svg viewBox="0 0 400 800">
+                        <text x="50%" y="50%" text-anchor="middle">Ameen</text>
+                    </svg>
+                    <h3>Designed & Developed by</h3>
+                </div>
+            </div>
+
+            <div class="toast" id="toast">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>Message sent successfully!</span>
+            </div>
+
+            <div class="toast error-toast" id="errorToast">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                <span>Please fill all fields correctly.</span>
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="contact" class="footer">
+        <div class="footer-content">
+            <h2> <span class="reveal-words">Ready to elevate</span> your <br> <span class="highlight"><span
+                        class="reveal-words">digital presence?</span></span></h2>
+            <p class="reveal-words">I am currently accepting new projects and collaborations. Let's build something
+                exceptional together.</p>
+
+            <div class="social-links">
+                <a href="https://wa.me/919351399956" target="_blank" class="social-icon">
+                    <span>WhatsApp</span>
+                    <i class="bi bi-whatsapp"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/ameen-developer" target="_blank" class="social-icon">
+                    <span>LinkedIn</span>
+                    <i class="bi bi-linkedin"></i>
+                </a>
+                <a href="mailto:contact.developer.ameen@gmail.com" class="social-icon">
+                    <span>Send Email</span>
+                    <i class="bi bi-envelope-fill"></i>
+                </a>
+                <a href="https://github.com/code-with-ameen" target="_blank" class="social-icon">
+                    <span>GitHub</span>
+                    <i class="bi bi-github"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Ameen. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <div id="backToTop" class="progress-wrap">
+        <svg width="60" height="60" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" class="progress-bg"></circle>
+            <circle cx="50" cy="50" r="45" class="progress"></circle>
+        </svg>
+        <i class="bi bi-arrow-up-short"></i>
+    </div>
+
+    <script>
+        // Universal scroll function
+        function scrollToSection(e, sectionId) {
+            e.preventDefault();
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const offset = 80;
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+            }
+        }
+
+        // Sidebar Logic
+        const hamburger = document.getElementById('hamburger');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const sidebarLinks = document.querySelectorAll('.sidebar-link');
+
+        hamburger.addEventListener('click', () => sidebar.classList.add('active'));
+        closeSidebar.addEventListener('click', () => sidebar.classList.remove('active'));
+        sidebarLinks.forEach(link => {
+            link.addEventListener('click', () => sidebar.classList.remove('active'));
+        });
+
+        // Intro Animation
+        const introElement = document.getElementById('intro');
+        const introText = document.querySelector('.intro-text');
+        const mainContent = document.getElementById('main-content');
+        const navbar = document.getElementById('navbar');
+
+        if (!sessionStorage.getItem('visited')) {
+            window.scrollTo(0, 0);
+            document.body.style.overflow = "hidden";
+
+            // Step 1: Text ko upar lao
+            setTimeout(() => {
+                introText.classList.add('show');
+            }, 500);
+
+            // Step 2: Text ko upar exit karo
+            setTimeout(() => {
+                introText.classList.remove('show');
+                introText.classList.add('exit');
+            }, 2500);
+
+            // Step 3: Overlay ko slide up karo
+            setTimeout(() => {
+                introElement.classList.add('hide');
+            }, 3300);
+
+            // Step 4: Content dikhao aur scroll chalu karo
+            setTimeout(() => {
+                mainContent.classList.add('reveal');
+                navbar.classList.add('reveal');
+                document.body.style.overflow = "auto";
+            }, 3800);
+
+            sessionStorage.setItem('visited', 'true');
+        } else {
+            // Setup for Returning user
+            introElement.style.display = "none";
+            mainContent.style.opacity = "1";
+            navbar.style.opacity = "1";
+            document.body.style.overflow = "auto";
+        }
+
+        // Typing Effect Logic 
+        const words = ["performance", "speed", "impact"];
+        let wordIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById("typing-word");
+
+        function typeEffect() {
+            const currentWord = words[wordIndex];
+            if (!isDeleting) {
+                typingElement.textContent = currentWord.substring(0, charIndex + 1);
+                charIndex++;
+                if (charIndex === currentWord.length) {
+                    setTimeout(() => isDeleting = true, 1200);
+                }
+            } else {
+                typingElement.textContent = currentWord.substring(0, charIndex - 1);
+                charIndex--;
+                if (charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % words.length;
+                }
+            }
+            setTimeout(typeEffect, isDeleting ? 60 : 90);
+        }
+
+        typeEffect();
+
+        // -----nav-link underline effect
+
+        const sections = document.querySelectorAll("section, div[id]");
+        const navLinks = document.querySelectorAll(".nav-link");
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.6
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.getAttribute("id");
+
+                    navLinks.forEach((link) => {
+                        link.classList.remove("active");
+                        if (link.getAttribute("href") === `#${id}`) {
+                            link.classList.add("active");
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        sections.forEach((section) => {
+            observer.observe(section);
+        });
+
+        // ----text animation----
+
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const elements = document.querySelectorAll(".reveal-words");
+
+            elements.forEach(el => {
+                const words = el.innerText.split(" ");
+                el.innerHTML = words.map(word =>
+                    `<span>${word}</span>`
+                ).join(" ");
+            });
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const spans = entry.target.querySelectorAll("span");
+
+                        spans.forEach((span, index) => {
+                            setTimeout(() => {
+                                span.classList.add("show");
+                            }, index * 100);
+                        });
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            elements.forEach(el => observer.observe(el));
+
+        });
+
+        // letter by letter
+        document.addEventListener("DOMContentLoaded", () => {
+
+            const elements = document.querySelectorAll(".reveal-letters");
+
+            elements.forEach(el => {
+
+                const textNodes = [];
+
+                function getTextNodes(node) {
+                    if (node.nodeType === 3) {
+                        textNodes.push(node);
+                    } else {
+                        node.childNodes.forEach(getTextNodes);
+                    }
+                }
+
+                getTextNodes(el);
+
+                textNodes.forEach(node => {
+                    const letters = node.textContent.split("");
+                    const fragment = document.createDocumentFragment();
+
+                    letters.forEach(letter => {
+                        if (letter === " ") {
+                            fragment.appendChild(document.createTextNode(" "));
+                        } else {
+                            const span = document.createElement("span");
+                            span.textContent = letter;
+                            fragment.appendChild(span);
+                        }
+                    });
+
+                    node.replaceWith(fragment);
+                });
+
+            });
+
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+
+                        const spans = entry.target.querySelectorAll("span");
+
+                        spans.forEach((span, index) => {
+                            setTimeout(() => {
+                                span.classList.add("show");
+                            }, index * 50);
+                        });
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.3 });
+
+            elements.forEach(el => observer.observe(el));
+
+        });
+
+        // -----card animation ------
+
+
+        // 3d 
+        /* Scroll reveal */
+
+        const cards = document.querySelectorAll(".card");
+        const cardObserver = new IntersectionObserver(entries => {
+
+            entries.forEach(entry => {
+
+                if (entry.isIntersecting) {
+
+                    entry.target.classList.add("show");
+
+                }
+
+            });
+
+        }, { threshold: 0.2 });
+
+        cards.forEach(card => cardObserver.observe(card));
+
+
+        /* 3D hover effect */
+
+        cards.forEach(card => {
+
+            const glare = card.querySelector(".glare");
+
+            card.addEventListener("mousemove", e => {
+
+                const rect = card.getBoundingClientRect();
+
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = ((y - centerY) / centerY) * -12;
+                const rotateY = ((x - centerX) / centerX) * 12;
+
+                card.style.transform =
+                    `perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+
+                /* glare follow */
+
+                const percentX = x / rect.width * 100;
+                const percentY = y / rect.height * 100;
+
+                glare.style.background =
+                    `radial-gradient(circle at ${percentX}% ${percentY}%,
+      rgba(255,255,255,0.4),
+      transparent 60%)`;
+
+                glare.style.opacity = "1";
+
+            });
+
+
+            card.addEventListener("mouseleave", () => {
+
+                card.style.transform =
+                    "perspective(900px) rotateX(0) rotateY(0) scale(1)";
+
+                glare.style.opacity = "0";
+
+            });
+
+        });
+
+        // -----Signature-----
+
+        // const signature = document.querySelector(".signature text");
+
+        // const signObserver = new IntersectionObserver(entries => {
+
+        //     entries.forEach(entry => {
+
+        //         if (entry.isIntersecting) {
+
+        //             signature.classList.add("text-animate");
+
+        //         }
+
+        //     });
+
+        // }, { threshold: 0.5 });
+
+        // signObserver.observe(signature);
+
+        // --------------------------
+
+        const signatureText = document.querySelector(".signature text");
+        const signatureH3 = document.querySelector(".signature > h3");
+
+        const signObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    if (entry.target === signatureText) {
+                        signatureText.classList.add("text-animate");
+                    }
+                    else if (entry.target === signatureH3) {
+                        // h3 me animation CSS already defined with delay,
+                        // bas ek visibility class dena acha rahega for safety
+                        signatureH3.classList.add("glow-animate");
+                    }
+                    signObserver.unobserve(entry.target); // ek baar animation start hone ke baad observe band kar do
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe dono elements
+        signObserver.observe(signatureText);
+        signObserver.observe(signatureH3);
+
+
+
+        // ----form----
+
+        // ---- Updated Form Logic ----
+
+        const submitBtn = document.getElementById('submitBtn');
+        const planeIcon = document.getElementById('plane');
+        const successToast = document.getElementById('toast');
+        const errorToast = document.getElementById('errorToast');
+        const btnText = submitBtn.querySelector('span');
+        const contactForm = document.getElementById('contactForm');
+
+        submitBtn.addEventListener('click', async () => {
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+            const errorMsg = errorToast.querySelector('span');
+
+            // Email Validation Regex
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            // 1. Check if empty
+            if (!name || !email || !message) {
+                errorMsg.textContent = "Please complete all fields before sending.";
+                showError();
+                return;
+            }
+
+            // 2. Check if email is valid
+            if (!emailPattern.test(email)) {
+                errorMsg.textContent = "Please enter a valid email address.";
+                showError();
+                return;
+            }
+
+            // --- SUCCESS FLOW & SENDING ---
+            submitBtn.style.overflow = "visible";
+            planeIcon.classList.add('fly-away');
+            btnText.textContent = "Sending...";
+            submitBtn.style.pointerEvents = 'none';
+
+            // Formspree API call
+            const formData = new FormData(contactForm);
+
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (response.ok) {
+                    // Show Success
+                    setTimeout(() => {
+                        successToast.classList.add('show');
+                        btnText.textContent = "Message Sent";
+                    }, 800);
+
+                    // Reset
+                    setTimeout(() => {
+                        successToast.classList.remove('show');
+                        planeIcon.classList.remove('fly-away');
+                        submitBtn.style.pointerEvents = 'all';
+                        btnText.textContent = "Send Message";
+                        contactForm.reset();
+                    }, 4500);
+                } else {
+                    throw new Error();
+                }
+            } catch (err) {
+                errorMsg.textContent = "Oops! Something went wrong. Try again.";
+                showError();
+                submitBtn.style.pointerEvents = 'all';
+                btnText.textContent = "Send Message";
+                planeIcon.classList.remove('fly-away');
+            }
+        });
+
+        function showError() {
+            errorToast.classList.add('show');
+            setTimeout(() => {
+                errorToast.classList.remove('show');
+            }, 3500);
+        }
+
+
+        // ---------cursor----------
+
+        const dot = document.querySelector('.cursor-dot');
+        const outline = document.querySelector('.cursor-outline');
+
+        let mouseX = 0, mouseY = 0;     // Mouse ki current position
+        let outlineX = 0, outlineY = 0; // Follower ki position
+
+        window.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX;
+            mouseY = e.clientY;
+
+            // Dot toh ekdam mouse ke saath chalega
+            dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
+        });
+
+        // Follower ko smooth banane ka function
+        function animate() {
+            // 0.2 ka matlab hai follower 20% speed se peeche aayega (Smoothness)
+            outlineX += (mouseX - outlineX) * 0.15;
+            outlineY += (mouseY - outlineY) * 0.15;
+
+            outline.style.transform = `translate(${outlineX}px, ${outlineY}px) translate(-50%, -50%)`;
+
+            requestAnimationFrame(animate);
+        }
+        animate(); // Animation loop start karo
+
+        // Hover Logic
+        document.addEventListener('mouseover', (e) => {
+            if (e.target.closest('a, button, .social-icon, .project-card, input, textarea, .nav-link')) {
+                document.body.classList.add('cursor-hover-active');
+            }
+        });
+
+        document.addEventListener('mouseout', (e) => {
+            if (e.target.closest('a, button, .social-icon, .project-card, input, textarea, .nav-link')) {
+                document.body.classList.remove('cursor-hover-active');
+            }
+        });
+
+        // Jab mouse window se bahar jaye
+        document.addEventListener('mouseleave', () => {
+            dot.style.opacity = '0';
+            outline.style.opacity = '0';
+        });
+
+        // Jab mouse vapas window mein aaye
+        document.addEventListener('mouseenter', () => {
+            dot.style.opacity = '1';
+            outline.style.opacity = '1';
+        });
+
+        // ----back to top----
+
+        // document.addEventListener('DOMContentLoaded', function () {
+        //     const progressPath = document.querySelector('.progress-wrap path');
+        //     const pathLength = progressPath.getTotalLength();
+
+        //     progressPath.style.transition = progressPath.style.WebkitTransition = 'none';
+        //     progressPath.style.strokeDasharray = pathLength + ' ' + pathLength;
+        //     progressPath.style.strokeDashoffset = pathLength;
+        //     progressPath.getBoundingClientRect();
+        //     progressPath.style.transition = progressPath.style.WebkitTransition = 'stroke-dashoffset 10ms linear';
+
+        //     const updateProgress = function () {
+        //         const scroll = window.pageYOffset || document.documentElement.scrollTop;
+        //         const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        //         const progress = pathLength - (scroll * pathLength / height);
+        //         progressPath.style.strokeDashoffset = progress;
+        //     }
+
+        //     updateProgress();
+        //     window.addEventListener('scroll', updateProgress);
+
+        //     // Show/Hide logic
+        //     window.addEventListener('scroll', function () {
+        //         if (window.pageYOffset > 150) {
+        //             document.querySelector('.progress-wrap').classList.add('active-progress');
+        //         } else {
+        //             document.querySelector('.progress-wrap').classList.remove('active-progress');
+        //         }
+        //     });
+
+        //     // Click to scroll top
+        //     document.querySelector('.progress-wrap').addEventListener('click', function (event) {
+        //         event.preventDefault();
+        //         window.scrollTo({ top: 0, behavior: 'smooth' });
+        //     });
+        // });
+
+        // --------------------
+
+        const progress = document.querySelector(".progress");
+        const backToTop = document.getElementById("backToTop");
+        const circumference = 2 * Math.PI * 45; // Wahi 283 logic
+
+        window.addEventListener("scroll", () => {
+            // 1. Circle Fill Logic (Tera vala)
+            const scrollTop = window.scrollY;
+            const height = document.documentElement.scrollHeight - window.innerHeight;
+            const progressValue = scrollTop / height;
+            const offset = circumference - progressValue * circumference;
+            progress.style.strokeDashoffset = offset;
+
+            // 2. Show/Hide Logic
+            if (window.scrollY > 300) {
+                backToTop.classList.add("active-progress");
+            } else {
+                backToTop.classList.remove("active-progress");
+            }
+        });
+
+        // 3. Smooth Scroll
+        backToTop.addEventListener("click", () => {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        });
+    </script>
+</body>
+
+</html>
