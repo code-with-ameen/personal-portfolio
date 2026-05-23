@@ -1641,6 +1641,7 @@ nav {
     .about-sticky-wrapper {
         flex-direction: column;
     }
+
     .about-sticky-left {
         position: static;
     }
@@ -3652,5 +3653,40 @@ footer p>span {
 @media (max-width: 768px) {
     .faq-grid {
         grid-template-columns: 1fr;
+    }
+}
+
+
+@media screen and (max-width: 1365px) {
+
+    /* 1. Flatten DOM structure so nested cards can stick to the main scroll container */
+    .bento-grid-row {
+        display: contents;
+    }
+
+    /* 2. Enable sticky behavior for all cards */
+    .about-scroll-right .bento-card {
+        position: sticky;
+    }
+
+    /* 3. Apply incrementing offsets to create the subtle layered stack */
+    .about-scroll-right>.bento-card:nth-child(1) {
+        top: 100px;
+        z-index: 11;
+    }
+
+    .bento-grid-row>.bento-card:nth-child(1) {
+        top: 120px;
+        z-index: 12;
+    }
+
+    .bento-grid-row>.bento-card:nth-child(2) {
+        top: 140px;
+        z-index: 13;
+    }
+
+    .about-scroll-right>.bento-card:nth-child(3) {
+        top: 160px;
+        z-index: 14;
     }
 }
