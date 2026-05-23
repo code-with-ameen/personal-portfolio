@@ -1,29 +1,6 @@
 // ============================================================
 // script.js — Ameen.dev Portfolio
-//
-// Sections:
-//  1.  Utility helpers
-//  2.  Sidebar
-//  3.  Intro animation
-//  4.  Typing effect
-//  5.  Nav-link active highlight
-//  6.  Word + letter reveal animations
-//  7.  PROJECT CARDS  — data + render
-//  8.  Card scroll-reveal + 3D hover
-//  9.  SERVICES CARDS — data + render       ← NEW
-//  10. STATS CARDS    — data + render       ← NEW
-//  11. Signature animation
-//  12. Contact form
-//  13. Custom cursor
-//  14. Back-to-top progress ring
-//  15. Skill progress bars
-//  16. 3D Slider — builder
-//  17. 3D Slider — drag rotate + modal
-//  18. VANISH animation — redesigned
-//  19. Mobile "View All" button
-//  20. TESTIMONIALS — data + render + reveal + hover
 // ============================================================
-
 
 // ─── 1. UTILITY ──────────────────────────────────────────────
 
@@ -77,6 +54,8 @@ if (!sessionStorage.getItem('visited')) {
     introEl.style.display    = 'none';
     mainEl.style.opacity     = '1';
     navbarEl.style.opacity   = '1';
+    mainEl.classList.add('reveal'); // Ensures safe fallback execution for Hero CSS animations
+    navbarEl.classList.add('reveal');
     document.body.style.overflow = 'auto';
 }
 
@@ -90,11 +69,15 @@ let   isDeleting    = false;
 const typingEl      = document.getElementById('typing-word');
 
 function typeEffect() {
+    if (!typingEl) return;
     const word = typingWords[wordIdx];
+    
     if (!isDeleting) {
         typingEl.textContent = word.substring(0, charIdx + 1);
         charIdx++;
-        if (charIdx === word.length) setTimeout(() => (isDeleting = true), 1200);
+        if (charIdx === word.length) {
+            setTimeout(() => (isDeleting = true), 1500);
+        }
     } else {
         typingEl.textContent = word.substring(0, charIdx - 1);
         charIdx--;
@@ -103,9 +86,12 @@ function typeEffect() {
             wordIdx    = (wordIdx + 1) % typingWords.length;
         }
     }
-    setTimeout(typeEffect, isDeleting ? 60 : 90);
+    setTimeout(typeEffect, isDeleting ? 40 : 80);
 }
-typeEffect();
+
+document.addEventListener('DOMContentLoaded', () => {
+    typeEffect();
+});
 
 
 // ─── 5. NAV-LINK ACTIVE HIGHLIGHT ────────────────────────────
@@ -131,12 +117,7 @@ sections.forEach(s => navObs.observe(s));
 // ─── 6. WORD + LETTER REVEAL ANIMATIONS ─────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
-
-    // ── Word reveal ──────────────────────────────────────────
-    // IMPORTANT: use textContent (not innerText) to avoid layout triggers.
-    // Only wrap if NOT already wrapped (prevents double-wrapping on reload).
     document.querySelectorAll('.reveal-words').forEach(el => {
-        // Skip if already wrapped
         if (el.querySelector('span')) return;
         const text = el.textContent.trim();
         if (!text) return;
@@ -159,13 +140,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.reveal-words').forEach(el => wordObs.observe(el));
 
-    // ── Letter reveal ────────────────────────────────────────
-    // Walks only TEXT nodes so existing child elements (span, strong) are preserved.
     document.querySelectorAll('.reveal-letters').forEach(el => {
-        // Skip if already wrapped
         if (el.querySelector('span')) return;
-
-        // Collect direct text nodes only (not deep — so we don't break child elements)
         const textNodes = [];
         el.childNodes.forEach(n => { if (n.nodeType === 3) textNodes.push(n); });
 
@@ -202,18 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── 7. PROJECT CARDS — DATA + RENDER ────────────────────────
 // ============================================================
 
-/**
- * projectsData — single source of truth for all project cards.
- * To add/edit/remove a project: edit this array only. HTML stays clean.
- *
- * Fields:
- *   image  {string}  Unsplash image URL
- *   alt    {string}  Accessible alt text
- *   title  {string}  Card heading
- *   desc   {string}  Short description
- *   link   {string}  Live preview URL ("#" if not live yet)
- *   hidden {boolean} true = desktop-only card (.mobile-hidden)
- */
 const projectsData = [
     {
         image:  'https://images.unsplash.com/photo-1557821552-17105176677c?w=600&q=80',
@@ -297,11 +261,6 @@ const projectsData = [
     }
 ];
 
-/**
- * renderProjectCard(data)
- * Builds one .project-card DOM element.
- * Handles missing data gracefully with fallbacks.
- */
 function renderProjectCard(data) {
     const image  = data.image  || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80';
     const alt    = data.alt    || data.title || 'Project';
@@ -328,7 +287,6 @@ function renderProjectCard(data) {
     return card;
 }
 
-/** Render all project cards into #projectGrid via DocumentFragment */
 function renderProjectCards() {
     const grid = document.getElementById('projectGrid');
     if (!grid) return;
@@ -343,7 +301,6 @@ document.addEventListener('DOMContentLoaded', renderProjectCards);
 // ─── 8. CARD SCROLL-REVEAL + 3D HOVER ────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
-    // setTimeout 0 → runs after renderProjectCards() has appended cards
     setTimeout(() => {
         const cards = document.querySelectorAll('.card');
         const isMob = window.matchMedia('(max-width: 1024px)').matches;
@@ -369,7 +326,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 const x  = e.clientX - r.left;
                 const y  = e.clientY - r.top;
                 const rx = ((y - r.height / 2) / (r.height / 2)) * -10;
-                const ry = ((x - r.width  / 2) / (r.width  / 2)) *  10;
+                const ry = ((x - r.width  / 2) / (r.width  / 2)) * 10;
                 requestAnimationFrame(() => {
                     card.style.transform =
                         `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05) translateY(-10px)`;
@@ -392,17 +349,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 // ============================================================
-// ─── 9. SERVICES CARDS — DATA + RENDER ← NEW ─────────────────
+// ─── 9. SERVICES CARDS — DATA + RENDER ───────────────────────
 // ============================================================
 
-/**
- * servicesData — edit here to update service offerings.
- *
- * Fields:
- *   icon  {string}  Bootstrap Icons class (e.g. 'bi bi-code-slash')
- *   title {string}  Service heading
- *   desc  {string}  Short description
- */
 const servicesData = [
     {
         icon:  'bi bi-code-slash',
@@ -436,10 +385,6 @@ const servicesData = [
     }
 ];
 
-/**
- * renderServiceCard(data)
- * Builds one .service-card element.
- */
 function renderServiceCard(data) {
     const icon  = data.icon  || 'bi bi-star';
     const title = data.title || 'Service';
@@ -456,7 +401,6 @@ function renderServiceCard(data) {
     return card;
 }
 
-/** Render all service cards into #servicesGrid */
 function renderServiceCards() {
     const grid = document.getElementById('servicesGrid');
     if (!grid) return;
@@ -465,13 +409,11 @@ function renderServiceCards() {
     grid.appendChild(frag);
 }
 
-/** Scroll-reveal for service cards */
 function initServicesReveal() {
     const cards = document.querySelectorAll('.service-card');
     const obs = new IntersectionObserver(entries => {
         entries.forEach((e, i) => {
             if (e.isIntersecting) {
-                // Stagger each card slightly
                 setTimeout(() => e.target.classList.add('show'), i * 100);
                 obs.unobserve(e.target);
             }
@@ -482,24 +424,14 @@ function initServicesReveal() {
 
 document.addEventListener('DOMContentLoaded', () => {
     renderServiceCards();
-    // Small delay so cards are in DOM before observer runs
     setTimeout(initServicesReveal, 50);
 });
 
 
 // ============================================================
-// ─── 10. STATS CARDS — DATA + RENDER ← NEW ───────────────────
+// ─── 10. STATS CARDS — DATA + RENDER ─────────────────────────
 // ============================================================
 
-/**
- * statsData — edit here to update counter values.
- *
- * Fields:
- *   value  {number}  Final counter value
- *   suffix {string}  Character after the number ('+', '%', 'x', etc.)
- *   label  {string}  Description below the number
- *   icon   {string}  Bootstrap Icons class
- */
 const statsData = [
     { value: 30,  suffix: '+', label: 'Projects Completed', icon: 'bi bi-briefcase-fill' },
     { value: 15,  suffix: '+', label: 'Happy Clients',       icon: 'bi bi-people-fill' },
@@ -507,11 +439,6 @@ const statsData = [
     { value: 100, suffix: '%', label: 'Client Satisfaction', icon: 'bi bi-award-fill' }
 ];
 
-/**
- * renderStatCard(data)
- * Builds one .stat-card element.
- * Counter animation is triggered by IntersectionObserver.
- */
 function renderStatCard(data) {
     const value  = data.value  ?? 0;
     const suffix = data.suffix || '';
@@ -520,7 +447,7 @@ function renderStatCard(data) {
 
     const card = document.createElement('div');
     card.className = 'stat-card';
-    card.dataset.target = value;   // used by counter animation
+    card.dataset.target = value;
 
     card.innerHTML = `
         <div class="stat-number" data-count="0">0</div>
@@ -530,7 +457,6 @@ function renderStatCard(data) {
     return card;
 }
 
-/** Animate a counter from 0 → target over ~1.5 s */
 function animateCounter(el, target) {
     const duration     = 1500;
     let   startTime    = null;
@@ -545,7 +471,6 @@ function animateCounter(el, target) {
     requestAnimationFrame(step);
 }
 
-/** Render all stat cards into #statsGrid + attach reveal observer */
 function renderStatCards() {
     const grid = document.getElementById('statsGrid');
     if (!grid) return;
@@ -554,7 +479,6 @@ function renderStatCards() {
     statsData.forEach(d => frag.appendChild(renderStatCard(d)));
     grid.appendChild(frag);
 
-    // Observe — trigger .show + counter when section enters viewport
     const cards = grid.querySelectorAll('.stat-card');
     const obs = new IntersectionObserver(entries => {
         entries.forEach((entry, i) => {
@@ -670,7 +594,6 @@ function showErrToast() {
 const dot     = document.querySelector('.cursor-dot');
 const outline = document.querySelector('.cursor-outline');
 
-// Guard: cursor elements must exist (hidden on mobile via CSS)
 if (dot && outline) {
     let mouseX = 0, mouseY = 0;
     let oX     = 0, oY    = 0;
@@ -700,7 +623,7 @@ if (dot && outline) {
 
 const progressCircle = document.querySelector('.progress');
 const backToTop      = document.getElementById('backToTop');
-const circumference  = 2 * Math.PI * 45; // ≈ 283
+const circumference  = 2 * Math.PI * 45;
 
 window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
@@ -712,37 +635,29 @@ window.addEventListener('scroll', () => {
 backToTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
 
-// ─── 15. SKILL PROGRESS BARS ─────────────────────────────────
-
+// ─── 15. ABOUT PREMIUM REVEAL (BLUR & STAGGER) ───────────────
 document.addEventListener('DOMContentLoaded', () => {
-    const skillsGrid  = document.querySelector('.skills-grid');
-    const progressBars = document.querySelectorAll('.skill-progress');
-    const counters     = document.querySelectorAll('.percentage');
-
-    function animateSkills() {
-        progressBars.forEach(b => b.classList.add('animate'));
-        counters.forEach(counter => {
-            const target   = +counter.getAttribute('data-target');
-            let   start    = null;
-            const duration = 1500;
-            const step = ts => {
-                if (!start) start = ts;
-                const p = Math.min((ts - start) / duration, 1);
-                counter.innerText = Math.floor(p * target) + '%';
-                if (p < 1) requestAnimationFrame(step);
-                else counter.innerText = target + '%';
-            };
-            requestAnimationFrame(step);
-        });
-    }
-
-    const skillsObs = new IntersectionObserver(entries => {
+    const blurElements = document.querySelectorAll('.reveal-blur');
+    const blurObs = new IntersectionObserver(entries => {
         entries.forEach(e => {
-            if (e.isIntersecting) { animateSkills(); skillsObs.unobserve(e.target); }
+            if (e.isIntersecting) {
+                e.target.classList.add('is-revealed');
+                blurObs.unobserve(e.target);
+            }
         });
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
+    blurElements.forEach(el => blurObs.observe(el));
 
-    if (skillsGrid) skillsObs.observe(skillsGrid);
+    const scrollElements = document.querySelectorAll('.reveal-blur-scroll');
+    const scrollObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('is-revealed');
+                scrollObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.2, rootMargin: "0px 0px -50px 0px" });
+    scrollElements.forEach(el => scrollObs.observe(el));
 });
 
 
@@ -798,7 +713,6 @@ document.addEventListener('DOMContentLoaded', () => {
         slider.style.animation = 'none';
         requestAnimationFrame(updateRot);
 
-        // Mouse drag
         window.addEventListener('mousedown', e => {
             if (!slider.classList.contains('active')) return;
             isDragging = true; startX = e.pageX;
@@ -812,7 +726,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         window.addEventListener('mouseup', () => (isDragging = false));
 
-        // Touch drag
         window.addEventListener('touchstart', e => {
             if (!slider.classList.contains('active')) return;
             isDragging = true; startX = e.touches[0].pageX;
@@ -826,7 +739,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         window.addEventListener('touchend', () => (isDragging = false));
 
-        // Card click → modal
         document.addEventListener('click', e => {
             const item = e.target.closest('.item');
             if (!item || !slider.classList.contains('active') || isDragging) return;
@@ -858,20 +770,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================================
 // ─── 18. VANISH ANIMATION — REDESIGNED ───────────────────────
 // ============================================================
-/**
- * NEW vs OLD:
- *  Old: clip-path wipe — abrupt, mechanical, laggy particles.
- *  New: CSS @keyframes cardDissolve (scale + blur + fade + drift)
- *       + one-shot Web Animations API particle burst per card
- *         (GPU only: transform + opacity — zero layout thrashing)
- *       + staggered timing (120 ms/card)
- *       + 3D slider entrance: sliderFadeIn keyframe
- *       + reverse (assemble) with cardAssemble keyframe
- *
- * Class names preserved from original:
- *   #viewAllBtn, .project-item, .is-vanishing, .v-particle,
- *   #project-3d-slider, .slider-active, .dots-loader
- */
+
 (function () {
     document.addEventListener('DOMContentLoaded', () => {
         const btn     = document.getElementById('viewAllBtn');
@@ -879,16 +778,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider  = document.getElementById('project-3d-slider');
         if (!btn) return;
 
-        /** Returns all visible .project-item elements */
         function visibleItems() {
             return Array.from(document.querySelectorAll('.project-item'))
                 .filter(el => window.getComputedStyle(el).display !== 'none');
         }
 
-        /**
-         * Fires 60 GPU-composited dust particles from a card's rect.
-         * upward=true → dissolve effect; false → assemble effect.
-         */
         function burstParticles(rect, upward) {
             const COLORS = ['#38bdf8', '#ffffff', '#8b5cf6', '#a5f3fc'];
             for (let i = 0; i < 60; i++) {
@@ -948,8 +842,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         }
 
-        const STAGGER     = 120;   // ms between each card animation
-        const DISSOLVE_MS = 900;   // matches cardDissolve keyframe duration
+        const STAGGER     = 120;
+        const DISSOLVE_MS = 900;
 
         btn.addEventListener('click', function () {
             const isReverse = this.classList.contains('view-less');
@@ -961,7 +855,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const items = visibleItems();
 
             if (!isReverse) {
-                // ── VANISH: grid → 3D slider ──────────────────
                 items.forEach((item, idx) => {
                     setTimeout(() => {
                         const rect = item.getBoundingClientRect();
@@ -975,7 +868,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (slider) {
                         section.classList.add('slider-active');
                         slider.style.display = 'block';
-                        slider.offsetHeight; // force reflow
+                        slider.offsetHeight;
                         slider.classList.add('active', 'slider-entering');
                         slider.classList.remove('is-reversing');
                         slider.addEventListener('animationend',
@@ -987,7 +880,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 }, totalTime);
 
             } else {
-                // ── ASSEMBLE: 3D slider → grid ────────────────
                 if (slider) {
                     slider.classList.add('is-reversing');
                     slider.classList.remove('active');
@@ -1055,7 +947,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── 20. TESTIMONIALS — DATA + RENDER + REVEAL + HOVER ───────
 // ============================================================
 
-/** testimonialsData — edit here to add/update/remove reviews */
 const testimonialsData = [
     {
         name:   'Sarah Mitchell',
@@ -1101,7 +992,6 @@ const testimonialsData = [
     }
 ];
 
-/** Build one .testimonial-card with fallback handling */
 function renderTestimonialCard(data) {
     const name   = data.name   || 'Anonymous';
     const role   = data.role   || 'Client';
@@ -1130,7 +1020,6 @@ function renderTestimonialCard(data) {
     return card;
 }
 
-/** Render all testimonial cards into #testimonialsGrid */
 function renderTestimonials() {
     const grid = document.getElementById('testimonialsGrid');
     if (!grid) return;
@@ -1139,7 +1028,6 @@ function renderTestimonials() {
     grid.appendChild(frag);
 }
 
-/** Scroll-reveal: adds .show when each card enters viewport */
 function initTestimonialsReveal() {
     const obs = new IntersectionObserver(entries => {
         entries.forEach(e => {
@@ -1152,7 +1040,6 @@ function initTestimonialsReveal() {
     document.querySelectorAll('.testimonial-card').forEach(c => obs.observe(c));
 }
 
-/** 3D tilt + glare hover — desktop only */
 function initTestimonialsHover() {
     if (window.matchMedia('(max-width: 1024px)').matches) return;
 
@@ -1166,7 +1053,7 @@ function initTestimonialsHover() {
             const x  = e.clientX - r.left;
             const y  = e.clientY - r.top;
             const rx = ((y - r.height / 2) / (r.height / 2)) * -8;
-            const ry = ((x - r.width  / 2) / (r.width  / 2)) *  8;
+            const ry = ((x - r.width  / 2) / (r.width  / 2)) * 8;
             requestAnimationFrame(() => {
                 card.style.transform =
                     `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03) translateY(-5px)`;
@@ -1222,7 +1109,6 @@ const marqueeItems2 = [
 ];
 
 function buildMarqueeHTML(items) {
-    // Build one set, then duplicate for seamless infinite scroll
     const oneSet = items.map((item, i) =>
         `<span class="marquee-item"><i class="${item.icon}"></i>${item.label}</span>` +
         (i < items.length - 1 ? '<span class="marquee-dot"></span>' : '')
@@ -1265,7 +1151,6 @@ function renderProcessSteps() {
     });
     grid.appendChild(frag);
 
-    // Scroll-reveal with stagger
     const obs = new IntersectionObserver(entries => {
         entries.forEach((e, i) => {
             if (!e.isIntersecting) return;
@@ -1331,7 +1216,6 @@ function renderFAQ() {
     });
     grid.appendChild(frag);
 
-    // Scroll-reveal
     const revealObs = new IntersectionObserver(entries => {
         entries.forEach((e, i) => {
             if (!e.isIntersecting) return;
@@ -1340,20 +1224,17 @@ function renderFAQ() {
         });
     }, { threshold: 0.08 });
 
-    // Accordion toggle
     grid.querySelectorAll('.faq-item').forEach(item => {
         revealObs.observe(item);
 
         item.querySelector('.faq-question').addEventListener('click', function () {
             const isOpen = item.classList.contains('open');
 
-            // Close all open items
             grid.querySelectorAll('.faq-item.open').forEach(open => {
                 open.classList.remove('open');
                 open.querySelector('.faq-question').setAttribute('aria-expanded', 'false');
             });
 
-            // Open this one if it was closed
             if (!isOpen) {
                 item.classList.add('open');
                 this.setAttribute('aria-expanded', 'true');
