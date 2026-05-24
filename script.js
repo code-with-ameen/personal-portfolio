@@ -16,33 +16,33 @@ function scrollToSection(e, id) {
 
 // ─── 2. SIDEBAR ──────────────────────────────────────────────
 
-const hamburger    = document.getElementById('hamburger');
-const sidebar      = document.getElementById('sidebar');
+const hamburger = document.getElementById('hamburger');
+const sidebar = document.getElementById('sidebar');
 const closeSidebar = document.getElementById('close-sidebar');
 const sidebarLinks = document.querySelectorAll('.sidebar-link');
 
-hamburger.addEventListener('click',    () => sidebar.classList.add('active'));
+hamburger.addEventListener('click', () => sidebar.classList.add('active'));
 closeSidebar.addEventListener('click', () => sidebar.classList.remove('active'));
 sidebarLinks.forEach(l => l.addEventListener('click', () => sidebar.classList.remove('active')));
 
 
 // ─── 3. INTRO ANIMATION ──────────────────────────────────────
 
-const introEl   = document.getElementById('intro');
+const introEl = document.getElementById('intro');
 const introText = document.querySelector('.intro-text');
-const mainEl    = document.getElementById('main-content');
-const navbarEl  = document.getElementById('navbar');
+const mainEl = document.getElementById('main-content');
+const navbarEl = document.getElementById('navbar');
 
 if (!sessionStorage.getItem('visited')) {
     window.scrollTo(0, 0);
     document.body.style.overflow = 'hidden';
 
-    setTimeout(() => introText.classList.add('show'),              500);
+    setTimeout(() => introText.classList.add('show'), 500);
     setTimeout(() => {
         introText.classList.remove('show');
         introText.classList.add('exit');
     }, 2500);
-    setTimeout(() => introEl.classList.add('hide'),                3300);
+    setTimeout(() => introEl.classList.add('hide'), 3300);
     setTimeout(() => {
         mainEl.classList.add('reveal');
         navbarEl.classList.add('reveal');
@@ -51,9 +51,9 @@ if (!sessionStorage.getItem('visited')) {
 
     sessionStorage.setItem('visited', 'true');
 } else {
-    introEl.style.display    = 'none';
-    mainEl.style.opacity     = '1';
-    navbarEl.style.opacity   = '1';
+    introEl.style.display = 'none';
+    mainEl.style.opacity = '1';
+    navbarEl.style.opacity = '1';
     mainEl.classList.add('reveal'); // Ensures safe fallback execution for Hero CSS animations
     navbarEl.classList.add('reveal');
     document.body.style.overflow = 'auto';
@@ -62,16 +62,16 @@ if (!sessionStorage.getItem('visited')) {
 
 // ─── 4. TYPING EFFECT ────────────────────────────────────────
 
-const typingWords   = ['performance', 'speed', 'impact'];
-let   wordIdx       = 0;
-let   charIdx       = 0;
-let   isDeleting    = false;
-const typingEl      = document.getElementById('typing-word');
+const typingWords = ['performance', 'speed', 'impact'];
+let wordIdx = 0;
+let charIdx = 0;
+let isDeleting = false;
+const typingEl = document.getElementById('typing-word');
 
 function typeEffect() {
     if (!typingEl) return;
     const word = typingWords[wordIdx];
-    
+
     if (!isDeleting) {
         typingEl.textContent = word.substring(0, charIdx + 1);
         charIdx++;
@@ -83,7 +83,7 @@ function typeEffect() {
         charIdx--;
         if (charIdx === 0) {
             isDeleting = false;
-            wordIdx    = (wordIdx + 1) % typingWords.length;
+            wordIdx = (wordIdx + 1) % typingWords.length;
         }
     }
     setTimeout(typeEffect, isDeleting ? 40 : 80);
@@ -97,7 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── 5. NAV-LINK ACTIVE HIGHLIGHT ────────────────────────────
 
 const sections = document.querySelectorAll('section[id]');
-const navLinks  = document.querySelectorAll('.nav-link');
+const navLinks = document.querySelectorAll('.nav-link');
 
 const navObs = new IntersectionObserver(entries => {
     entries.forEach(entry => {
@@ -178,125 +178,109 @@ document.addEventListener('DOMContentLoaded', () => {
 // ─── 7. PROJECT CARDS — DATA + RENDER ────────────────────────
 // ============================================================
 
-const projectsData = [
+// Add this to your script.js (Replace the old 7. PROJECT CARDS section)
+const premiumProjectsData = [
     {
-        image:  'https://images.unsplash.com/photo-1557821552-17105176677c?w=600&q=80',
-        alt:    'E-Shop Store',
-        title:  'E-Shop Store',
-        desc:   'Fully responsive e-commerce layout with modern UI.',
-        link:   'https://ameen-eshop.netlify.app',
-        hidden: false
+        id: '01',
+        title: 'Lumina Dashboard',
+        type: 'Web Application',
+        desc: 'An advanced data visualization platform engineered for real-time analytics. Built with modular architecture to process complex datasets without dropping a single frame.',
+        tags: ['React', 'D3.js', 'Tailwind'],
+        image: './assets/projectCardImages/SaaS_dashboard.jpg',
+        liveLink: '#',
+        sourceLink: '#'
     },
     {
-        image:  'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=600&q=80',
-        alt:    'Gym Landing Page',
-        title:  'Gym Landing Page',
-        desc:   'High-performance fitness site with GSAP animations.',
-        link:   'https://ameen-gym.netlify.app',
-        hidden: false
+        id: '02',
+        title: 'Aura Studio',
+        type: 'Creative Agency',
+        desc: 'A minimalist digital storefront combining fluid typography with WebGL micro-interactions. Designed to capture attention through pure aesthetic precision.',
+        tags: ['Next.js', 'GSAP', 'WebGL'],
+        image: './assets/projectCardImages/creative_agency.jpg',
+        liveLink: '#',
+        sourceLink: '#'
     },
     {
-        image:  'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&q=80',
-        alt:    'Creative Agency',
-        title:  'Creative Agency',
-        desc:   'Minimalist portfolio for digital marketing studios.',
-        link:   'https://ameen-agency.netlify.app',
-        hidden: false
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=600&q=80',
-        alt:    'Web Application',
-        title:  'Web Application',
-        desc:   'Advanced dashboard with real-time analytics.',
-        link:   '#',
-        hidden: true
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1551650975-87deedd944c3?w=600&q=80',
-        alt:    'Mobile Portfolio',
-        title:  'Mobile Portfolio',
-        desc:   'Interactive mobile-first experience.',
-        link:   '#',
-        hidden: true
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?w=600&q=80',
-        alt:    'UI/UX Design Kit',
-        title:  'UI/UX Design Kit',
-        desc:   'Modern design components and assets.',
-        link:   '#',
-        hidden: true
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80',
-        alt:    'Code Editor Pro',
-        title:  'Code Editor Pro',
-        desc:   'Custom theme and plugins for developers.',
-        link:   '#',
-        hidden: true
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600&q=80',
-        alt:    'SaaS Landing Page',
-        title:  'SaaS Landing Page',
-        desc:   'High-converting landing page for SaaS products.',
-        link:   '#',
-        hidden: true
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=600&q=80',
-        alt:    'Team Collaboration',
-        title:  'Team Collaboration',
-        desc:   'Real-time chat and task management tool.',
-        link:   '#',
-        hidden: true
-    },
-    {
-        image:  'https://images.unsplash.com/photo-1551288049-bbbda536339a?w=600&q=80',
-        alt:    'Data Analytics',
-        title:  'Data Analytics',
-        desc:   'Visualizing big data with interactive charts.',
-        link:   '#',
-        hidden: true
+        id: '03',
+        title: 'Nexus Commerce',
+        type: 'E-Commerce System',
+        desc: 'High-performance storefront architecture. Features optimistic UI updates, seamless cart transitions, and an editorial product discovery experience.',
+        tags: ['TypeScript', 'Stripe', 'Framer Motion'],
+        image: './assets/projectCardImages/e-commerce.jpg',
+        liveLink: '#',
+        sourceLink: '#'
     }
 ];
 
-function renderProjectCard(data) {
-    const image  = data.image  || 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?w=600&q=80';
-    const alt    = data.alt    || data.title || 'Project';
-    const title  = data.title  || 'Untitled Project';
-    const desc   = data.desc   || 'No description available.';
-    const link   = data.link   || '#';
+// ============================================================
+// ─── 7. PREMIUM SELECTED WORK — RENDER ENGINE ───────────────
+// ============================================================
 
-    const card   = document.createElement('div');
-    card.className = ['project-card', 'card', 'project-item', data.hidden ? 'mobile-hidden' : '']
-        .filter(Boolean).join(' ');
+function renderPremiumProjects() {
+    const stack = document.getElementById('premiumWorkStack');
+    if (!stack) return;
 
-    card.innerHTML = `
-        <div class="card-img-container">
-            <img src="${image}" alt="${alt}" loading="lazy">
-            <div class="card-overlay">
-                <a href="${link}" target="_blank" class="preview-btn">Live Preview</a>
-            </div>
-        </div>
-        <div class="glare"></div>
-        <div class="card-info">
-            <h3>${title}</h3>
-            <p>${desc}</p>
-        </div>`;
-    return card;
-}
-
-function renderProjectCards() {
-    const grid = document.getElementById('projectGrid');
-    if (!grid) return;
     const frag = document.createDocumentFragment();
-    projectsData.forEach(d => frag.appendChild(renderProjectCard(d)));
-    grid.appendChild(frag);
+
+    premiumProjectsData.forEach((project) => {
+        const frame = document.createElement('article');
+        // Apply existing reveal-blur class to tie into your scroll ecosystem
+        frame.className = 'story-frame reveal-blur';
+
+        frame.innerHTML = `
+            <div class="story-card-wrapper">
+                <div class="story-visual">
+                    <img src="${project.image}" alt="${project.title}" loading="lazy">
+                </div>
+                
+                <div class="story-panel">
+                    <div class="story-meta-header">
+                        <span class="story-id">${project.id}</span>
+                        <span class="story-type">${project.type}</span>
+                    </div>
+                    
+                    <h3>${project.title}</h3>
+                    <p>${project.desc}</p>
+                    
+                    <div class="story-tags">
+                        ${project.tags.map(tag => `<span class="s-tag">${tag}</span>`).join('')}
+                    </div>
+                    
+                    <div class="story-actions">
+                        <a href="${project.liveLink}" target="_blank" class="story-cta">
+                            Live Preview <i class="bi bi-arrow-up-right"></i>
+                        </a>
+                        <a href="${project.sourceLink}" target="_blank" class="story-cta">
+                            Source <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+        frag.appendChild(frame);
+    });
+
+    stack.appendChild(frag);
+
+    // Attach the newly rendered frames to your existing intersection observer
+    setTimeout(initPremiumScrollReveal, 100);
 }
 
-document.addEventListener('DOMContentLoaded', renderProjectCards);
+function initPremiumScrollReveal() {
+    const frames = document.querySelectorAll('.story-frame.reveal-blur');
+    const scrollObs = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+            if (e.isIntersecting) {
+                e.target.classList.add('is-revealed');
+                scrollObs.unobserve(e.target);
+            }
+        });
+    }, { threshold: 0.15, rootMargin: "0px 0px -100px 0px" });
 
+    frames.forEach(el => scrollObs.observe(el));
+}
+
+document.addEventListener('DOMContentLoaded', renderPremiumProjects);
 
 // ─── 8. CARD SCROLL-REVEAL + 3D HOVER ────────────────────────
 
@@ -322,16 +306,16 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!glare) return;
 
             card.addEventListener('mousemove', e => {
-                const r  = card.getBoundingClientRect();
-                const x  = e.clientX - r.left;
-                const y  = e.clientY - r.top;
+                const r = card.getBoundingClientRect();
+                const x = e.clientX - r.left;
+                const y = e.clientY - r.top;
                 const rx = ((y - r.height / 2) / (r.height / 2)) * -10;
-                const ry = ((x - r.width  / 2) / (r.width  / 2)) * 10;
+                const ry = ((x - r.width / 2) / (r.width / 2)) * 10;
                 requestAnimationFrame(() => {
                     card.style.transform =
                         `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.05) translateY(-10px)`;
                     glare.style.background =
-                        `radial-gradient(circle at ${(x/r.width)*100}% ${(y/r.height)*100}%, rgba(255,255,255,0.3), transparent 65%)`;
+                        `radial-gradient(circle at ${(x / r.width) * 100}% ${(y / r.height) * 100}%, rgba(255,255,255,0.3), transparent 65%)`;
                     glare.style.opacity = '1';
                 });
             });
@@ -354,41 +338,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const servicesData = [
     {
-        icon:  'bi bi-code-slash',
+        icon: 'bi bi-code-slash',
         title: 'Frontend Development',
-        desc:  'Pixel-perfect, performant interfaces built with HTML5, CSS3, and modern JavaScript (ES6+). Every component is clean, scalable, and production-ready.'
+        desc: 'Pixel-perfect, performant interfaces built with HTML5, CSS3, and modern JavaScript (ES6+). Every component is clean, scalable, and production-ready.'
     },
     {
-        icon:  'bi bi-phone',
+        icon: 'bi bi-phone',
         title: 'Responsive Design',
-        desc:  'Fluid layouts that look and feel great on every screen — from ultra-wide monitors to small mobile viewports, without compromising speed or quality.'
+        desc: 'Fluid layouts that look and feel great on every screen — from ultra-wide monitors to small mobile viewports, without compromising speed or quality.'
     },
     {
-        icon:  'bi bi-palette2',
+        icon: 'bi bi-palette2',
         title: 'UI/UX Implementation',
-        desc:  'Translating Figma or XD designs into living, breathing web experiences. Micro-interactions, smooth transitions, and thoughtful hover states included.'
+        desc: 'Translating Figma or XD designs into living, breathing web experiences. Micro-interactions, smooth transitions, and thoughtful hover states included.'
     },
     {
-        icon:  'bi bi-speedometer2',
+        icon: 'bi bi-speedometer2',
         title: 'Performance Optimization',
-        desc:  'Lazy loading, efficient DOM updates, GPU-composited animations, and minimal payload strategies to keep Lighthouse scores in the green.'
+        desc: 'Lazy loading, efficient DOM updates, GPU-composited animations, and minimal payload strategies to keep Lighthouse scores in the green.'
     },
     {
-        icon:  'bi bi-brush',
+        icon: 'bi bi-brush',
         title: 'Landing Page Design',
-        desc:  'High-converting landing pages with strong visual hierarchy, compelling CTAs, and immersive hero sections that capture attention immediately.'
+        desc: 'High-converting landing pages with strong visual hierarchy, compelling CTAs, and immersive hero sections that capture attention immediately.'
     },
     {
-        icon:  'bi bi-cart-check',
+        icon: 'bi bi-cart-check',
         title: 'E-Commerce Interfaces',
-        desc:  'Responsive product grids, cart flows, and checkout pages with clean UX patterns that reduce friction and increase conversions for online stores.'
+        desc: 'Responsive product grids, cart flows, and checkout pages with clean UX patterns that reduce friction and increase conversions for online stores.'
     }
 ];
 
 function renderServiceCard(data) {
-    const icon  = data.icon  || 'bi bi-star';
+    const icon = data.icon || 'bi bi-star';
     const title = data.title || 'Service';
-    const desc  = data.desc  || '';
+    const desc = data.desc || '';
 
     const card = document.createElement('div');
     card.className = 'service-card';
@@ -433,17 +417,17 @@ document.addEventListener('DOMContentLoaded', () => {
 // ============================================================
 
 const statsData = [
-    { value: 30,  suffix: '+', label: 'Projects Completed', icon: 'bi bi-briefcase-fill' },
-    { value: 15,  suffix: '+', label: 'Happy Clients',       icon: 'bi bi-people-fill' },
-    { value: 2,   suffix: '+', label: 'Years Experience',    icon: 'bi bi-calendar-check-fill' },
+    { value: 30, suffix: '+', label: 'Projects Completed', icon: 'bi bi-briefcase-fill' },
+    { value: 15, suffix: '+', label: 'Happy Clients', icon: 'bi bi-people-fill' },
+    { value: 2, suffix: '+', label: 'Years Experience', icon: 'bi bi-calendar-check-fill' },
     { value: 100, suffix: '%', label: 'Client Satisfaction', icon: 'bi bi-award-fill' }
 ];
 
 function renderStatCard(data) {
-    const value  = data.value  ?? 0;
+    const value = data.value ?? 0;
     const suffix = data.suffix || '';
-    const label  = data.label  || '';
-    const icon   = data.icon   || 'bi bi-star-fill';
+    const label = data.label || '';
+    const icon = data.icon || 'bi bi-star-fill';
 
     const card = document.createElement('div');
     card.className = 'stat-card';
@@ -458,8 +442,8 @@ function renderStatCard(data) {
 }
 
 function animateCounter(el, target) {
-    const duration     = 1500;
-    let   startTime    = null;
+    const duration = 1500;
+    let startTime = null;
 
     function step(timestamp) {
         if (!startTime) startTime = timestamp;
@@ -486,7 +470,7 @@ function renderStatCards() {
                 setTimeout(() => {
                     entry.target.classList.add('show');
                     const countEl = entry.target.querySelector('.stat-number');
-                    const target  = parseInt(entry.target.dataset.target, 10);
+                    const target = parseInt(entry.target.dataset.target, 10);
                     if (countEl && !isNaN(target)) animateCounter(countEl, target);
                 }, i * 150);
                 obs.unobserve(entry.target);
@@ -504,14 +488,14 @@ document.addEventListener('DOMContentLoaded', renderStatCards);
 
 document.addEventListener('DOMContentLoaded', () => {
     const sigText = document.querySelector('.signature text');
-    const sigH3   = document.querySelector('.signature > h3');
+    const sigH3 = document.querySelector('.signature > h3');
     if (!sigText || !sigH3) return;
 
     const sigObs = new IntersectionObserver(entries => {
         entries.forEach(e => {
             if (e.isIntersecting) {
                 if (e.target === sigText) sigText.classList.add('text-animate');
-                if (e.target === sigH3)   sigH3.classList.add('glow-animate');
+                if (e.target === sigH3) sigH3.classList.add('glow-animate');
                 sigObs.unobserve(e.target);
             }
         });
@@ -524,18 +508,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ─── 12. CONTACT FORM ────────────────────────────────────────
 
-const submitBtn    = document.getElementById('submitBtn');
-const planeIcon    = document.getElementById('plane');
+const submitBtn = document.getElementById('submitBtn');
+const planeIcon = document.getElementById('plane');
 const successToast = document.getElementById('toast');
-const errorToast   = document.getElementById('errorToast');
-const contactForm  = document.getElementById('contactForm');
-const btnText      = submitBtn.querySelector('span');
+const errorToast = document.getElementById('errorToast');
+const contactForm = document.getElementById('contactForm');
+const btnText = submitBtn.querySelector('span');
 
 submitBtn.addEventListener('click', async () => {
-    const name    = document.getElementById('name').value.trim();
-    const email   = document.getElementById('email').value.trim();
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
-    const errMsg  = errorToast.querySelector('span');
+    const errMsg = errorToast.querySelector('span');
     const emailRx = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!name || !email || !message) {
@@ -547,15 +531,15 @@ submitBtn.addEventListener('click', async () => {
         showErrToast(); return;
     }
 
-    submitBtn.style.overflow    = 'visible';
+    submitBtn.style.overflow = 'visible';
     planeIcon.classList.add('fly-away');
-    btnText.textContent         = 'Sending…';
+    btnText.textContent = 'Sending…';
     submitBtn.style.pointerEvents = 'none';
 
     try {
         const res = await fetch(contactForm.action, {
-            method:  'POST',
-            body:    new FormData(contactForm),
+            method: 'POST',
+            body: new FormData(contactForm),
             headers: { 'Accept': 'application/json' }
         });
 
@@ -591,12 +575,12 @@ function showErrToast() {
 
 // ─── 13. CUSTOM CURSOR ───────────────────────────────────────
 
-const dot     = document.querySelector('.cursor-dot');
+const dot = document.querySelector('.cursor-dot');
 const outline = document.querySelector('.cursor-outline');
 
 if (dot && outline) {
     let mouseX = 0, mouseY = 0;
-    let oX     = 0, oY    = 0;
+    let oX = 0, oY = 0;
 
     window.addEventListener('mousemove', e => {
         mouseX = e.clientX;
@@ -612,8 +596,8 @@ if (dot && outline) {
     })();
 
     const hoverTargets = 'a,button,.social-icon,.project-card,.testimonial-card,.service-card,.process-step,.faq-question,input,textarea,.nav-link';
-    document.addEventListener('mouseover',  e => { if (e.target.closest(hoverTargets)) document.body.classList.add('cursor-hover-active'); });
-    document.addEventListener('mouseout',   e => { if (e.target.closest(hoverTargets)) document.body.classList.remove('cursor-hover-active'); });
+    document.addEventListener('mouseover', e => { if (e.target.closest(hoverTargets)) document.body.classList.add('cursor-hover-active'); });
+    document.addEventListener('mouseout', e => { if (e.target.closest(hoverTargets)) document.body.classList.remove('cursor-hover-active'); });
     document.addEventListener('mouseleave', () => { dot.style.opacity = '0'; outline.style.opacity = '0'; });
     document.addEventListener('mouseenter', () => { dot.style.opacity = '1'; outline.style.opacity = '1'; });
 }
@@ -622,12 +606,12 @@ if (dot && outline) {
 // ─── 14. BACK-TO-TOP PROGRESS RING ───────────────────────────
 
 const progressCircle = document.querySelector('.progress');
-const backToTop      = document.getElementById('backToTop');
-const circumference  = 2 * Math.PI * 45;
+const backToTop = document.getElementById('backToTop');
+const circumference = 2 * Math.PI * 45;
 
 window.addEventListener('scroll', () => {
     const scrolled = window.scrollY;
-    const total    = document.documentElement.scrollHeight - window.innerHeight;
+    const total = document.documentElement.scrollHeight - window.innerHeight;
     progressCircle.style.strokeDashoffset = circumference - (scrolled / total) * circumference;
     backToTop.classList.toggle('active-progress', scrolled > 300);
 });
@@ -668,9 +652,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const slider = document.getElementById('project-3d-slider');
         if (!slider) return;
 
-        const names    = ['E-SHOP', 'GYM SITE', 'AGENCY', 'PORTFOLIO', 'WEB APP'];
-        const total    = 10;
-        let   html     = '';
+        const names = ['E-SHOP', 'GYM SITE', 'AGENCY', 'PORTFOLIO', 'WEB APP'];
+        const total = 10;
+        let html = '';
 
         for (let i = 1; i <= total; i++) {
             const title = names[i - 1] || 'COMING SOON';
@@ -699,7 +683,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let isDragging = false;
         let startX;
-        let rotY        = 0;
+        let rotY = 0;
         const autoSpeed = -0.15;
 
         function updateRot() {
@@ -743,8 +727,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const item = e.target.closest('.item');
             if (!item || !slider.classList.contains('active') || isDragging) return;
 
-            const title  = item.querySelector('h3')?.innerText || 'Coming Soon';
-            const modal  = document.createElement('div');
+            const title = item.querySelector('h3')?.innerText || 'Coming Soon';
+            const modal = document.createElement('div');
             modal.className = 'project-modal';
             modal.innerHTML = `
                 <div class="modal-overlay"></div>
@@ -773,9 +757,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 (function () {
     document.addEventListener('DOMContentLoaded', () => {
-        const btn     = document.getElementById('viewAllBtn');
+        const btn = document.getElementById('viewAllBtn');
         const section = document.querySelector('.project-section');
-        const slider  = document.getElementById('project-3d-slider');
+        const slider = document.getElementById('project-3d-slider');
         if (!btn) return;
 
         function visibleItems() {
@@ -786,33 +770,33 @@ document.addEventListener('DOMContentLoaded', () => {
         function burstParticles(rect, upward) {
             const COLORS = ['#38bdf8', '#ffffff', '#8b5cf6', '#a5f3fc'];
             for (let i = 0; i < 60; i++) {
-                const p    = document.createElement('div');
+                const p = document.createElement('div');
                 p.className = 'v-particle';
-                const size  = Math.random() * 5 + 2;
+                const size = Math.random() * 5 + 2;
                 const color = COLORS[Math.floor(Math.random() * COLORS.length)];
                 p.style.cssText = `
                     left:${rect.left + Math.random() * rect.width}px;
-                    top:${rect.top  + Math.random() * rect.height}px;
+                    top:${rect.top + Math.random() * rect.height}px;
                     width:${size}px; height:${size}px;
                     background:${color};
-                    box-shadow:0 0 ${size*2}px ${color};`;
+                    box-shadow:0 0 ${size * 2}px ${color};`;
                 document.body.appendChild(p);
 
-                const dx  = (Math.random() - 0.5) * 200;
-                const dy  = upward
+                const dx = (Math.random() - 0.5) * 200;
+                const dy = upward
                     ? -(Math.random() * 180 + 60)
-                    :  (Math.random() * 180 + 60);
+                    : (Math.random() * 180 + 60);
 
                 p.animate(
                     [
-                        { transform: 'translate(0,0) scale(1)',               opacity: 1 },
-                        { transform: `translate(${dx}px,${dy}px) scale(0)`,   opacity: 0 }
+                        { transform: 'translate(0,0) scale(1)', opacity: 1 },
+                        { transform: `translate(${dx}px,${dy}px) scale(0)`, opacity: 0 }
                     ],
                     {
                         duration: 600 + Math.random() * 600,
-                        delay:    Math.random() * 300,
-                        easing:   'ease-out',
-                        fill:     'forwards'
+                        delay: Math.random() * 300,
+                        easing: 'ease-out',
+                        fill: 'forwards'
                     }
                 ).onfinish = () => p.remove();
             }
@@ -826,14 +810,14 @@ document.addEventListener('DOMContentLoaded', () => {
         function cleanup(b, label, addViewLess) {
             setTimeout(() => {
                 document.querySelectorAll('.project-item').forEach(el => {
-                    el.style.animation    = '';
-                    el.style.opacity      = '';
-                    el.style.transform    = '';
-                    el.style.filter       = '';
+                    el.style.animation = '';
+                    el.style.opacity = '';
+                    el.style.transform = '';
+                    el.style.filter = '';
                     el.style.pointerEvents = '';
                 });
-                b.disabled   = false;
-                b.innerText  = label;
+                b.disabled = false;
+                b.innerText = label;
                 addViewLess
                     ? b.classList.add('view-less')
                     : b.classList.remove('view-less');
@@ -842,12 +826,12 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 800);
         }
 
-        const STAGGER     = 120;
+        const STAGGER = 120;
         const DISSOLVE_MS = 900;
 
         btn.addEventListener('click', function () {
             const isReverse = this.classList.contains('view-less');
-            this.disabled   = true;
+            this.disabled = true;
             document.body.style.overflow = 'hidden';
             if (section) section.style.pointerEvents = 'none';
             showLoader(this);
@@ -919,7 +903,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     mobileBtn.addEventListener('click', function () {
         const hiddenCards = document.querySelectorAll('.mobile-hidden');
-        const isShowing   = this.classList.contains('view-less');
+        const isShowing = this.classList.contains('view-less');
 
         if (!isShowing) {
             hiddenCards.forEach((c, i) => {
@@ -949,54 +933,54 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const testimonialsData = [
     {
-        name:   'Sarah Mitchell',
-        role:   'CEO, BrightPath Studio',
+        name: 'Sarah Mitchell',
+        role: 'CEO, BrightPath Studio',
         avatar: 'https://i.pravatar.cc/100?img=47',
         review: 'Working with Ameen was an absolute pleasure. He turned our outdated site into a stunning, high-performance experience. Delivery was fast and the attention to detail was impressive.',
-        stars:  5
+        stars: 5
     },
     {
-        name:   'Daniel Ortega',
-        role:   'Founder, LaunchLab',
+        name: 'Daniel Ortega',
+        role: 'Founder, LaunchLab',
         avatar: 'https://i.pravatar.cc/100?img=12',
         review: 'The landing page Ameen built converted 3× better from day one. Clean code, beautiful design, and zero revisions needed. Highly recommended for any serious project.',
-        stars:  5
+        stars: 5
     },
     {
-        name:   'Priya Nair',
-        role:   'Product Manager, Nexora',
+        name: 'Priya Nair',
+        role: 'Product Manager, Nexora',
         avatar: 'https://i.pravatar.cc/100?img=23',
         review: 'Ameen has a rare combination of strong design taste and technical depth. He understood our brand immediately and delivered something we genuinely love showing off.',
-        stars:  5
+        stars: 5
     },
     {
-        name:   'James Carter',
-        role:   'Marketing Director, Skyline Co.',
+        name: 'James Carter',
+        role: 'Marketing Director, Skyline Co.',
         avatar: 'https://i.pravatar.cc/100?img=33',
         review: 'Professional, responsive, and incredibly skilled. He built our entire SaaS landing page from scratch in record time. The animations alone generated tons of positive feedback.',
-        stars:  4
+        stars: 4
     },
     {
-        name:   'Aisha Bello',
-        role:   'Creative Director, Inkform Agency',
+        name: 'Aisha Bello',
+        role: 'Creative Director, Inkform Agency',
         avatar: 'https://i.pravatar.cc/100?img=56',
         review: 'I have worked with many developers — Ameen stands out for caring about both the code quality and the final visual result. The site feels alive and premium.',
-        stars:  5
+        stars: 5
     },
     {
-        name:   'Ryan Patel',
-        role:   'Startup Founder',
+        name: 'Ryan Patel',
+        role: 'Startup Founder',
         avatar: 'https://i.pravatar.cc/100?img=68',
         review: 'Exceptional work on our e-commerce project. Every interaction feels smooth and polished. We have received consistent compliments from customers about the shopping experience.',
-        stars:  5
+        stars: 5
     }
 ];
 
 function renderTestimonialCard(data) {
-    const name   = data.name   || 'Anonymous';
-    const role   = data.role   || 'Client';
+    const name = data.name || 'Anonymous';
+    const role = data.role || 'Client';
     const review = data.review || 'Great experience working with this developer.';
-    const stars  = typeof data.stars === 'number' ? Math.min(5, Math.max(1, data.stars)) : 5;
+    const stars = typeof data.stars === 'number' ? Math.min(5, Math.max(1, data.stars)) : 5;
     const avatar = data.avatar || '';
 
     const starsHTML = Array.from({ length: 5 }, (_, i) =>
@@ -1049,16 +1033,16 @@ function initTestimonialsHover() {
         card.appendChild(glare);
 
         card.addEventListener('mousemove', e => {
-            const r  = card.getBoundingClientRect();
-            const x  = e.clientX - r.left;
-            const y  = e.clientY - r.top;
+            const r = card.getBoundingClientRect();
+            const x = e.clientX - r.left;
+            const y = e.clientY - r.top;
             const rx = ((y - r.height / 2) / (r.height / 2)) * -8;
-            const ry = ((x - r.width  / 2) / (r.width  / 2)) * 8;
+            const ry = ((x - r.width / 2) / (r.width / 2)) * 8;
             requestAnimationFrame(() => {
                 card.style.transform =
                     `perspective(1000px) rotateX(${rx}deg) rotateY(${ry}deg) scale(1.03) translateY(-5px)`;
                 glare.style.background =
-                    `radial-gradient(circle at ${(x/r.width)*100}% ${(y/r.height)*100}%, rgba(255,255,255,0.25), transparent 65%)`;
+                    `radial-gradient(circle at ${(x / r.width) * 100}% ${(y / r.height) * 100}%, rgba(255,255,255,0.25), transparent 65%)`;
                 glare.style.opacity = '1';
             });
         });
@@ -1086,25 +1070,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const marqueeItems1 = [
     { icon: 'bi bi-filetype-html', label: 'HTML5' },
-    { icon: 'bi bi-filetype-css',  label: 'CSS3' },
-    { icon: 'bi bi-filetype-js',   label: 'JavaScript' },
-    { icon: 'bi bi-phone',         label: 'Responsive' },
-    { icon: 'bi bi-palette2',      label: 'UI Design' },
-    { icon: 'bi bi-git',           label: 'Git' },
-    { icon: 'bi bi-speedometer2',  label: 'Performance' },
-    { icon: 'bi bi-brush',         label: 'Figma' },
-    { icon: 'bi bi-bootstrap',     label: 'Bootstrap' },
-    { icon: 'bi bi-stars',         label: 'Animation' },
+    { icon: 'bi bi-filetype-css', label: 'CSS3' },
+    { icon: 'bi bi-filetype-js', label: 'JavaScript' },
+    { icon: 'bi bi-phone', label: 'Responsive' },
+    { icon: 'bi bi-palette2', label: 'UI Design' },
+    { icon: 'bi bi-git', label: 'Git' },
+    { icon: 'bi bi-speedometer2', label: 'Performance' },
+    { icon: 'bi bi-brush', label: 'Figma' },
+    { icon: 'bi bi-bootstrap', label: 'Bootstrap' },
+    { icon: 'bi bi-stars', label: 'Animation' },
 ];
 
 const marqueeItems2 = [
-    { icon: 'bi bi-trophy-fill',       label: '30+ Projects Delivered' },
-    { icon: 'bi bi-people-fill',       label: '15+ Happy Clients' },
-    { icon: 'bi bi-star-fill',         label: '5-Star Reviews' },
-    { icon: 'bi bi-award-fill',        label: 'Clean Code' },
-    { icon: 'bi bi-lightning-fill',    label: 'Fast Delivery' },
+    { icon: 'bi bi-trophy-fill', label: '30+ Projects Delivered' },
+    { icon: 'bi bi-people-fill', label: '15+ Happy Clients' },
+    { icon: 'bi bi-star-fill', label: '5-Star Reviews' },
+    { icon: 'bi bi-award-fill', label: 'Clean Code' },
+    { icon: 'bi bi-lightning-fill', label: 'Fast Delivery' },
     { icon: 'bi bi-shield-check-fill', label: 'Pixel Perfect' },
-    { icon: 'bi bi-phone-fill',        label: 'Mobile First' },
+    { icon: 'bi bi-phone-fill', label: 'Mobile First' },
     { icon: 'bi bi-camera-video-fill', label: 'Smooth Animations' },
 ];
 
@@ -1129,10 +1113,10 @@ document.addEventListener('DOMContentLoaded', () => {
 // ================================================================
 
 const processData = [
-    { num: '01', title: 'Discovery',  desc: 'Deep dive into your goals, audience, and requirements through a focused kickoff conversation.' },
-    { num: '02', title: 'Design',     desc: 'Wireframes and a full visual direction — every layout and interaction planned before a single line of code.' },
-    { num: '03', title: 'Build',      desc: 'Clean, semantic, well-commented code. Built in reusable components for maximum scalability.' },
-    { num: '04', title: 'Launch',     desc: 'Thorough testing across browsers and devices. Smooth handoff with documentation and ongoing support.' },
+    { num: '01', title: 'Discovery', desc: 'Deep dive into your goals, audience, and requirements through a focused kickoff conversation.' },
+    { num: '02', title: 'Design', desc: 'Wireframes and a full visual direction — every layout and interaction planned before a single line of code.' },
+    { num: '03', title: 'Build', desc: 'Clean, semantic, well-commented code. Built in reusable components for maximum scalability.' },
+    { num: '04', title: 'Launch', desc: 'Thorough testing across browsers and devices. Smooth handoff with documentation and ongoing support.' },
 ];
 
 function renderProcessSteps() {
