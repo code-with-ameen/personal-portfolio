@@ -1220,6 +1220,134 @@ function renderFAQ() {
             });
 
             if (!isOpen) {
+
+
+                // ============================================================
+                // 25. FOOTER SIGNATURE ORCHESTRATOR (PROPER SFX UNLOCK)
+                // ============================================================
+                document.addEventListener('DOMContentLoaded', () => {
+                    const sigBlock = document.getElementById('footer-signature-block');
+                    const sigContainer = sigBlock?.querySelector('.signature');
+                    const sigSVG = sigBlock?.querySelector('svg');
+                    const sigText = document.getElementById('sig-text');
+                    const sigSubline = document.getElementById('sig-subline');
+                    const inkContainer = document.getElementById('ink-container');
+                    const signatureSfx = document.getElementById('signature-sfx');
+
+                    if (!sigBlock || !sigText || !sigSVG || !sigContainer) return;
+
+                    // --- PROPER AUDIO UNLOCK LOGIC ---
+                    let isAudioUnlocked = false;
+
+                    // Array of all requested interactions, including scroll and wheel
+                    const unlockEvents = ['scroll', 'wheel', 'mousemove', 'pointerdown', 'click', 'touchstart', 'keydown'];
+
+                    const unlockAudio = () => {
+                        if (!signatureSfx || isAudioUnlocked) return;
+
+                        signatureSfx.muted = true; // Mute to prevent micro-stutter
+                        const unlockPromise = signatureSfx.play();
+
+                        if (unlockPromise !== undefined) {
+                            unlockPromise.then(() => {
+                                // If successful, reset and prime the audio
+                                signatureSfx.pause();
+                                signatureSfx.currentTime = 0;
+                                signatureSfx.muted = false;
+                                isAudioUnlocked = true;
+
+                                // Immediately remove all listeners so it only runs once
+                                unlockEvents.forEach(evt => {
+                                    document.removeEventListener(evt, unlockAudio, true);
+                                });
+                            }).catch(() => {
+                                // Silently catch if the browser rejects a passive scroll. 
+                                // The listener remains active to catch the next interaction (e.g., a wheel or click).
+                            });
+                        }
+                    };
+
+                    if (signatureSfx) {
+                        signatureSfx.volume = 0.4;
+
+                        // Attach the unlocker to all interactions. Use capture phase to ensure it fires first.
+                        unlockEvents.forEach(evt => {
+                            document.addEventListener(evt, unlockAudio, { once: true, capture: true, passive: true });
+                        });
+                    }
+                    // ---------------------------------
+
+                    const signatureObserver = new IntersectionObserver(entries => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting) {
+                                // 1. Trigger write animation ONCE
+                                sigText.classList.add('is-writing');
+
+                                // 2. Wait exactly 4 seconds (completion of sigWrite)
+                                setTimeout(() => {
+                                    // Lock the main SVG into a permanently drawn state
+                                    sigText.classList.replace('is-writing', 'is-drawn');
+
+                                    // 3. Cinematic Pause (200ms) before activation
+                                    setTimeout(() => {
+
+                                        // 4a. Trigger SFX (Now primed by previous scroll/interaction)
+                                        if (
+                                            signatureSfx &&
+                                            isAudioUnlocked &&
+                                            !hasPlayedSfx
+                                        ) {
+                                            hasPlayedSfx = true;
+
+                                            signatureSfx.currentTime = 0;
+
+                                            signatureSfx.play().catch(err => {
+                                                console.warn('SFX playback failed:', err);
+                                            });
+                                        }
+
+                                        // 4b. Trigger Micro Interference
+                                        sigText.classList.add('is-glitching');
+
+                                        // Create the physical distortion slice clone
+                                        const sliceClone = sigSVG.cloneNode(true);
+                                        sliceClone.classList.add('glitch-slice-clone');
+
+                                        const cloneText = sliceClone.querySelector('text');
+                                        if (cloneText) {
+                                            cloneText.removeAttribute('id');
+                                            cloneText.classList.add('is-drawn');
+                                        }
+
+                                        sigContainer.appendChild(sliceClone);
+
+                                        // 5. Wait for the slice animation to finish (250ms)
+                                        setTimeout(() => {
+                                            // Erase glitch layers
+                                            sliceClone.remove();
+                                            sigText.classList.remove('is-glitching');
+
+                                            // Apply Final Premium Glow
+                                            sigText.classList.add('is-activated');
+
+                                            // 6. Reveal Subline & Ink Residue Bloom
+                                            sigSubline.classList.add('is-visible');
+                                            inkContainer.classList.add('ink-activated');
+
+                                        }, 250);
+
+                                    }, 200);
+
+                                }, 4000);
+
+                                // Sequence runs EXACTLY ONCE.
+                                signatureObserver.unobserve(entry.target);
+                            }
+                        });
+                    }, { threshold: 0.4 });
+
+                    signatureObserver.observe(sigBlock);
+                });
                 item.classList.add('open');
                 this.setAttribute('aria-expanded', 'true');
             }
@@ -1230,3 +1358,281 @@ function renderFAQ() {
 document.addEventListener('DOMContentLoaded', renderFAQ);
 
 // ================================================================
+
+// ============================================================
+// 24. CINEMATIC FOOTER ATMOSPHERE ENGINE (V2)
+// ============================================================
+(function () {
+    const footer = document.getElementById('footer');
+    const canvas = document.getElementById('ce-dust-canvas');
+    if (!footer || !canvas) return;
+
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let animationFrameId;
+    let startTime = Date.now();
+
+    // Environment targets for luxury motion loops
+    const bloomMain = document.getElementById('ce-main-bloom');
+    const bloomCore = document.getElementById('ce-main-core');
+    const bloomAccent = document.getElementById('ce-accent-glow');
+    const bloomSig = document.getElementById('ce-sig-bloom');
+    const contours = document.getElementById('ce-contours');
+
+    function resize() {
+        const rect = footer.getBoundingClientRect();
+        width = rect.width;
+        height = rect.height;
+        canvas.width = width;
+        canvas.height = height;
+        initParticles();
+    }
+
+    // Advanced Cinematic Particle Definition
+    class PremiumParticle {
+        constructor() {
+            this.reset(true);
+        }
+
+        reset(randomY = false) {
+            this.x = Math.random() * width;
+            this.y = randomY ? Math.random() * height : height + 20;
+
+            // Layered Depth Layout (Split sizes to generate multi-plane parallax depth)
+            const depthGroup = Math.random();
+            if (depthGroup > 0.85) {
+                // Foreground/Crisp macro particles
+                this.radius = Math.random() * 1.2 + 1.4; // 1.4px to 2.6px
+                this.vy = -(Math.random() * 0.28 + 0.15);
+                this.maxOpacity = Math.random() * 0.65 + 0.25;
+            } else if (depthGroup > 0.4) {
+                // Midground standard dust field
+                this.radius = Math.random() * 0.6 + 0.8;  // 0.8px to 1.4px
+                this.vy = -(Math.random() * 0.16 + 0.08);
+                this.maxOpacity = Math.random() * 0.55 + 0.2;
+            } else {
+                // Background deep micro mist
+                this.radius = Math.random() * 0.4 + 0.4;  // 0.4px to 0.8px
+                this.vy = -(Math.random() * 0.08 + 0.04);
+                this.maxOpacity = Math.random() * 0.4 + 0.1;
+            }
+
+            this.vx = (Math.random() - 0.5) * 0.12;
+
+            // Cinematic palette distribution
+            const randColor = Math.random();
+            if (randColor > 0.75) {
+                this.colorBase = 'rgba(56, 189, 248,';  // Cyan
+            } else if (randColor > 0.5) {
+                this.colorBase = 'rgba(168, 85, 247,';  // Violet
+            } else {
+                this.colorBase = 'rgba(235, 247, 255,'; // Crystal White
+            }
+
+            this.opacity = randomY ? (Math.random() * this.maxOpacity) : 0;
+            this.waveSpeed = Math.random() * 0.015 + 0.005;
+            this.waveOffset = Math.random() * Math.PI * 2;
+        }
+
+        update() {
+            this.y += this.vy;
+            this.x += this.vx + Math.sin(this.waveOffset) * 0.08;
+            this.waveOffset += this.waveSpeed;
+
+            // Fluid cinematic edge fading curves
+            if (this.y > height - 60 && this.opacity < this.maxOpacity) {
+                this.opacity += 0.012;
+            } else if (this.y < 120) {
+                this.opacity -= 0.01;
+            }
+
+            if (this.y < -15 || this.opacity <= 0 || this.x < -10 || this.x > width + 10) {
+                this.reset();
+            }
+        }
+
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = `${this.colorBase}${Math.max(0, Math.min(this.opacity, 1))})`;
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        // High density count ensuring a fully visible, beautiful luxury field
+        const targetCount = Math.min(130, Math.floor(width / 10));
+        for (let i = 0; i < targetCount; i++) {
+            particles.push(new PremiumParticle());
+        }
+    }
+
+    // High Performance Rendering Engine Loop
+    function renderEngine() {
+        const elapsed = (Date.now() - startTime) * 0.001;
+
+        // 1. Clear Frame & Redraw Particle Space
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+
+        // 2. High-Visibility Aurora Breathing Curves
+        if (bloomMain && bloomCore && bloomAccent && bloomSig) {
+            const cycleMain = 1 + Math.sin(elapsed * 0.45) * 0.05; // Visible 5% breathing scale
+            const cycleCore = 1 + Math.cos(elapsed * 0.6) * 0.07;
+            const cycleAccent = 1 + Math.sin(elapsed * 0.35) * 0.08;
+            const cycleSig = 1 + Math.cos(elapsed * 0.5 + 1.5) * 0.06;
+
+            bloomMain.style.transform = `scale(${cycleMain}) translate(${Math.sin(elapsed * 0.2) * 10}px, 0px)`;
+            bloomCore.style.transform = `scale(${cycleCore})`;
+            bloomAccent.style.transform = `scale(${cycleAccent})`;
+            bloomSig.style.transform = `scale(${cycleSig})`;
+        }
+
+        // 3. Topographic Contour Shimmer & Micro-Drift Loop
+        if (contours) {
+            const shiftX = Math.sin(elapsed * 0.25) * 20; // Noticeable 20px organic drift
+            const shiftY = Math.cos(elapsed * 0.2) * 12;
+            const shimmerOpacity = 0.7 + Math.sin(elapsed * 0.8) * 0.12; // Fluid micro shimmer cycle
+
+            contours.style.transform = `translate(${shiftX}px, ${shiftY}px) scale(1.04)`;
+            contours.style.opacity = shimmerOpacity;
+        }
+
+        animationFrameId = requestAnimationFrame(renderEngine);
+    }
+
+    window.addEventListener('resize', resize);
+
+    // Performance Management Guard (Only activates loops when footer hits the viewport)
+    const engineObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                resize();
+                startTime = Date.now();
+                renderEngine();
+            } else {
+                cancelAnimationFrame(animationFrameId);
+            }
+        });
+    }, { threshold: 0 });
+
+    engineObserver.observe(footer);
+})();
+
+
+// Add this to your script.js file, replacing the previous version of the FOOTER SIGNATURE ORCHESTRATOR
+
+// ============================================================
+// 25. FOOTER SIGNATURE ORCHESTRATOR (CLEAN PRODUCTION VERSION)
+// ============================================================
+document.addEventListener('DOMContentLoaded', () => {
+    const sigBlock = document.getElementById('footer-signature-block');
+    const sigContainer = sigBlock?.querySelector('.signature');
+    const sigSVG = sigBlock?.querySelector('svg');
+    const sigText = document.getElementById('sig-text');
+    const sigSubline = document.getElementById('sig-subline');
+    const inkContainer = document.getElementById('ink-container');
+    const signatureSfx = document.getElementById('signature-sfx');
+    
+    if (!sigBlock || !sigText || !sigSVG || !sigContainer) return;
+
+    if (signatureSfx) {
+        signatureSfx.volume = 0.4;
+    }
+
+    let hasInteracted = false;
+    let signatureReached = false;
+    let sfxPlayed = false;
+
+    // Standard high-authority interactions allowed by browser policies
+    const registerUserGesture = () => {
+        if (hasInteracted) return;
+        hasInteracted = true;
+        
+        // Cleanup global listeners immediately
+        ['click', 'touchstart', 'keydown'].forEach(type => {
+            document.removeEventListener(type, registerUserGesture, { capture: true });
+        });
+
+        // Edge case: if signature is already visible and waiting, fire the sound immediately on first interaction
+        if (signatureReached && !sfxPlayed) {
+            triggerPremiumSfx();
+        }
+    };
+
+    ['click', 'touchstart', 'keydown'].forEach(type => {
+        document.addEventListener(type, registerUserGesture, { passive: true, capture: true });
+    });
+
+    const triggerPremiumSfx = () => {
+        if (!signatureSfx || sfxPlayed) return;
+        
+        signatureSfx.play()
+            .then(() => {
+                sfxPlayed = true;
+            })
+            .catch(() => {
+                // Absolute silent safety matrix - intercepts 100% of browser restrictions smoothly
+            });
+    };
+
+    const signatureObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // 1. Trigger write animation ONCE
+                sigText.classList.add('is-writing');
+                
+                // 2. Wait exactly 4 seconds (completion of sigWrite)
+                setTimeout(() => {
+                    sigText.classList.replace('is-writing', 'is-drawn');
+                    
+                    // 3. Cinematic Pause (200ms) before activation
+                    setTimeout(() => {
+                        
+                        signatureReached = true;
+
+                        // 4a. Trigger SFX safely only if user gave authority gesture
+                        if (hasInteracted) {
+                            triggerPremiumSfx();
+                        }
+
+                        // 4b. Trigger Micro Interference
+                        sigText.classList.add('is-glitching');
+                        
+                        const sliceClone = sigSVG.cloneNode(true);
+                        sliceClone.classList.add('glitch-slice-clone');
+                        
+                        const cloneText = sliceClone.querySelector('text');
+                        if (cloneText) {
+                            cloneText.removeAttribute('id');
+                            cloneText.classList.add('is-drawn'); 
+                        }
+                        
+                        sigContainer.appendChild(sliceClone);
+                        
+                        // 5. Wait for the slice animation to finish (250ms)
+                        setTimeout(() => {
+                            sliceClone.remove();
+                            sigText.classList.remove('is-glitching');
+                            sigText.classList.add('is-activated');
+                            sigSubline.classList.add('is-visible');
+                            inkContainer.classList.add('ink-activated');
+                        }, 250); 
+                        
+                    }, 200); 
+                    
+                }, 4000); 
+
+                // Sequence runs EXACTLY ONCE.
+                signatureObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.4 });
+
+    signatureObserver.observe(sigBlock);
+});

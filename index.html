@@ -437,13 +437,13 @@
                         </div>
                     </form>
 
-                    <div class="signature">
+                    <!-- <div class="signature">
                         <div class="scan-line"></div>
                         <svg viewBox="0 0 400 800">
                             <text x="50%" y="50%" text-anchor="middle">Ameen</text>
                         </svg>
                         <h3>Designed &amp; Developed by</h3>
-                    </div>
+                    </div> -->
                 </div>
             </div>
 
@@ -460,45 +460,125 @@
 
     </main>
 
-    <footer class="footer">
-        <div class="control-cont">
-            <div class="footer-content">
-                <h2>
-                    <span class="reveal-words">Ready to elevate your</span> <br>
-                    <span class="highlight">
-                        <span class="reveal-words">digital presence?</span>
-                    </span>
-                </h2>
-                <p class="reveal-words">
-                    I am currently accepting new projects and collaborations.
-                    Let's build something exceptional together.
-                </p>
+    <footer class="premium-footer" id="footer">
+        <div id="footer-cinematic-engine">
 
-                <div class="social-links">
-                    <a href="https://wa.me/919351399956" target="_blank" class="social-icon">
-                        <span>WhatsApp</span>
-                        <i class="bi bi-whatsapp"></i>
+            <div class="ce-aurora ce-main-bloom" id="ce-main-bloom"></div>
+            <div class="ce-aurora ce-main-core" id="ce-main-core"></div>
+            <div class="ce-aurora ce-accent-glow" id="ce-accent-glow"></div>
+            <div class="ce-aurora ce-sig-bloom" id="ce-sig-bloom"></div>
+
+            <div class="ce-contours" id="ce-contours">
+                <svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+                    <g stroke-width="1.2" fill="none">
+                        <path d="M-100,360 C200,480 350,120 650,300 C900,450 1050,180 1300,240"
+                            stroke="rgba(56, 189, 248, 0.28)" />
+                        <path d="M-100,390 C180,510 330,150 630,330 C880,480 1070,210 1300,270"
+                            stroke="rgba(168, 85, 247, 0.22)" />
+                        <path d="M-100,420 C160,540 310,180 610,360 C860,510 1090,240 1300,300"
+                            stroke="rgba(56, 189, 248, 0.14)" />
+                        <path d="M0,580 C250,400 450,520 680,250 C900,20 1020,150 1200,80"
+                            stroke="rgba(255, 255, 255, 0.08)" />
+                    </g>
+                </svg>
+            </div>
+
+            <div class="ce-glass ce-shard-1">
+                <div class="ce-glass-sheen"></div>
+            </div>
+            <div class="ce-glass ce-shard-2">
+                <div class="ce-glass-sheen"></div>
+            </div>
+
+            <div class="ce-glass ce-plate-1">
+                <div class="ce-glass-sheen"></div>
+            </div>
+            <div class="ce-glass ce-plate-2">
+                <div class="ce-glass-sheen"></div>
+            </div>
+            <div class="ce-glass ce-plate-3">
+                <div class="ce-glass-sheen"></div>
+            </div>
+            <div class="ce-glass ce-plate-4">
+                <div class="ce-glass-sheen"></div>
+            </div>
+
+            <div class="ce-glass ce-chip-1"></div>
+            <div class="ce-glass ce-chip-2"></div>
+            <div class="ce-glass ce-chip-3"></div>
+            <div class="ce-glass ce-chip-4"></div>
+            <div class="ce-glass ce-chip-5"></div>
+
+            <canvas id="ce-dust-canvas"></canvas>
+
+            <div class="ce-vignette"></div>
+        </div>
+
+        <div class="control-cont relative-z">
+
+            <div class="footer-hero">
+                <h2 class="footer-title">
+                    LET’S BUILD<br>
+                    <span class="highlight-subtle">SOMETHING EXCEPTIONAL</span>
+                </h2>
+                <p class="footer-support">Crafting premium digital experiences with precision and intent.</p>
+                <a href="mailto:contact.developer.ameen@gmail.com" class="footer-cta">
+                    Let's Build Together <i class="bi bi-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="footer-divider"></div>
+
+            <div class="footer-middle">
+                <div class="footer-capsule">
+                    <span class="footer-status-dot"></span>
+                    <span class="footer-capsule-text">Available for work</span>
+                </div>
+
+                <div class="footer-links">
+                    <a href="https://github.com/code-with-ameen" target="_blank" class="f-link">
+                        <i class="bi bi-arrow-up-right"></i> GitHub
                     </a>
-                    <a href="https://www.linkedin.com/in/ameen-developer" target="_blank" class="social-icon">
-                        <span>LinkedIn</span>
-                        <i class="bi bi-linkedin"></i>
+                    <a href="mailto:contact.developer.ameen@gmail.com" class="f-link">
+                        <i class="bi bi-arrow-up-right"></i> Email
                     </a>
-                    <a href="mailto:contact.developer.ameen@gmail.com" class="social-icon">
-                        <span>Send Email</span>
-                        <i class="bi bi-envelope-fill"></i>
-                    </a>
-                    <a href="https://github.com/code-with-ameen" target="_blank" class="social-icon">
-                        <span>GitHub</span>
-                        <i class="bi bi-github"></i>
+                    <a href="#" target="_blank" class="f-link">
+                        <i class="bi bi-arrow-up-right"></i> Resume
                     </a>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <p>&copy; 2026 Ameen. All Rights Reserved.</p>
+            <div class="footer-divider"></div>
+
+            <div class="footer-bottom-row">
+                <div class="footer-copy">
+                    <p>Crafted with obsession &<br>frontend precision.</p>
+                    <p class="copy-year">&copy; 2026 Ameen</p>
+                </div>
+
+                <div class="footer-signature-container" id="footer-signature-block">
+                    <div class="signature">
+                        <svg viewBox="0 0 400 800" preserveAspectRatio="xMidYMid meet">
+                            <text x="50%" y="50%" text-anchor="middle" id="sig-text">Ameen</text>
+                        </svg>
+
+                        <h3 id="sig-subline">Designed &amp; Developed &bull; Frontend Precision</h3>
+
+                        <div class="ink-residue-container" id="ink-container">
+                            <span class="ink-drop ink-1"></span>
+                            <span class="ink-drop ink-2"></span>
+                            <span class="ink-drop ink-3"></span>
+                            <span class="ink-drop ink-4"></span>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </footer>
+    <audio id="signature-sfx" preload="auto">
+        <source src="./assets/sound_effects/glitch.mpeg" type="audio/mpeg">
+    </audio>
 
     <div id="backToTop" class="progress-wrap">
         <svg width="60" height="60" viewBox="0 0 100 100">
