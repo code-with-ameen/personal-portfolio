@@ -3119,7 +3119,6 @@ text {
 
 /* Middle: Status & Links */
 .footer-middle {
-    backdrop-filter: blur(10px);
     display: flex;
     justify-content: space-between;
     align-items: center;
