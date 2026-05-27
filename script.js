@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // BACKEND REQUEST (NOT FORMSPREE)
             // ==================================================
             const response = await fetch(
-                'https://portfolio-mail-backend-77z4.onrender.com/contact',
+                'https://new-backend.up.railway.app/contact',
                 {
                     method: 'POST',
                     headers: {
