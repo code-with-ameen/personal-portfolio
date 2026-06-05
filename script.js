@@ -597,7 +597,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // BACKEND REQUEST (NOT FORMSPREE)
             // ==================================================
             const response = await fetch(
-                'https://new-backend.up.railway.app/contact',
+                'https://portfolio-mail-backend-77z4.onrender.com/contact',
                 {
                     method: 'POST',
                     headers: {
@@ -1620,7 +1620,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const sigSubline = document.getElementById('sig-subline');
     const inkContainer = document.getElementById('ink-container');
     const signatureSfx = document.getElementById('signature-sfx');
-    
+
     if (!sigBlock || !sigText || !sigSVG || !sigContainer) return;
 
     if (signatureSfx) {
@@ -1635,7 +1635,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const registerUserGesture = () => {
         if (hasInteracted) return;
         hasInteracted = true;
-        
+
         // Cleanup global listeners immediately
         ['click', 'touchstart', 'keydown'].forEach(type => {
             document.removeEventListener(type, registerUserGesture, { capture: true });
@@ -1653,7 +1653,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const triggerPremiumSfx = () => {
         if (!signatureSfx || sfxPlayed) return;
-        
+
         signatureSfx.play()
             .then(() => {
                 sfxPlayed = true;
@@ -1668,14 +1668,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (entry.isIntersecting) {
                 // 1. Trigger write animation ONCE
                 sigText.classList.add('is-writing');
-                
+
                 // 2. Wait exactly 4 seconds (completion of sigWrite)
                 setTimeout(() => {
                     sigText.classList.replace('is-writing', 'is-drawn');
-                    
+
                     // 3. Cinematic Pause (200ms) before activation
                     setTimeout(() => {
-                        
+
                         signatureReached = true;
 
                         // 4a. Trigger SFX safely only if user gave authority gesture
@@ -1685,18 +1685,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
                         // 4b. Trigger Micro Interference
                         sigText.classList.add('is-glitching');
-                        
+
                         const sliceClone = sigSVG.cloneNode(true);
                         sliceClone.classList.add('glitch-slice-clone');
-                        
+
                         const cloneText = sliceClone.querySelector('text');
                         if (cloneText) {
                             cloneText.removeAttribute('id');
-                            cloneText.classList.add('is-drawn'); 
+                            cloneText.classList.add('is-drawn');
                         }
-                        
+
                         sigContainer.appendChild(sliceClone);
-                        
+
                         // 5. Wait for the slice animation to finish (250ms)
                         setTimeout(() => {
                             sliceClone.remove();
@@ -1704,11 +1704,11 @@ document.addEventListener('DOMContentLoaded', () => {
                             sigText.classList.add('is-activated');
                             sigSubline.classList.add('is-visible');
                             inkContainer.classList.add('ink-activated');
-                        }, 250); 
-                        
-                    }, 200); 
-                    
-                }, 4000); 
+                        }, 250);
+
+                    }, 200);
+
+                }, 4000);
 
                 // Sequence runs EXACTLY ONCE.
                 signatureObserver.unobserve(entry.target);
